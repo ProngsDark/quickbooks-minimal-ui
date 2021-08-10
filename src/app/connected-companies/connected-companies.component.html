@@ -1,0 +1,11 @@
+<h1>2. Connected company</h1>
+
+<button *ngFor="let realm of companies.keys()" (click)="printCompany(realm)">{{ realm }}</button>
+
+<pre>{{ selectedCompany }}</pre>
+
+<h1>3. Get Invoices</h1>
+
+<button (click)="retrieveInvoices()">Retrieve invoices</button>
+
+<pre>{{ invoices }}</pre>
