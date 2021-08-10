@@ -10,6 +10,6 @@ export class ConnectButtonComponent implements OnInit {
   ngOnInit(): void {}
 
   redirectToConnectPage() {
-    window.location.href = 'https://perso.dev.matrixrom.ro:9000/quickbooks/oauth/connect'
+    window.location.href = 'https://perso.dev.matrixrom.ro:10000/quickbooks/oauth/connect'
   }
 }
