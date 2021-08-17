@@ -45,7 +45,7 @@ export class ConnectedCompaniesComponent implements OnInit, OnChanges {
 
   public retrieveInvoices() {
     this.http.get<any>(
-      'https://perso.dev.matrixrom.ro:10000/quickbooks/invoice/list',
+      'https://perso2.dev.matrixrom.ro:9000/quickbooks/invoice/list',
       {
         headers: {
           "Realm-ID": Array.from(this.companies.keys())[0],
