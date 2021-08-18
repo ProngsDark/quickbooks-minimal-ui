@@ -10,6 +10,8 @@ export class AppComponent implements OnInit{
 
   public companies: Map<string, any> = new Map<string, any>();
 
+  public realmId: string = ""
+
   constructor (private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -20,8 +22,10 @@ export class AppComponent implements OnInit{
     const realmId: string|null = urlParams.get('realmId')
 
     if (code !== null && realmId !== null) {
+        this.realmId = realmId
+
         this.http.post<any>(
-          'https://perso2.dev.matrixrom.ro:9000/quickbooks/oauth/code',
+          'https:///perso2.matrixrom.ro:9000/quickbooks/oauth/code',
           null,
           {
             headers: {

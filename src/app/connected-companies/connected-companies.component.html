@@ -6,6 +6,6 @@
 
 <h1>3. Get Invoices</h1>
 
-<button (click)="retrieveInvoices()">Retrieve invoices</button>
+<data-retrieval-button *ngFor="let button of buttons" [buttonName]="button.buttonName" [endpoint]="button.endpoint" [realmId]="button.realmId"></data-retrieval-button>
 
-<pre>{{ invoices }}</pre>
+<pre>{{ data }}</pre>

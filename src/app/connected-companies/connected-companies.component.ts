@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
+import { Button } from '../data-retrieval-button/button';
+import { DataServiceService } from '../data-service.service';
 
 @Component({
   selector: 'connected-companies',
@@ -14,9 +16,12 @@ export class ConnectedCompaniesComponent implements OnInit, OnChanges {
   @Output()
   public companiesUpdater: EventEmitter<Map<string, any>> = new EventEmitter<Map<string, any>>();
 
-  public invoices: string = ""
+  public data: string = ""
 
-  private realmId: string = ""
+  @Input()
+  public realmId: string = ""
+
+  public buttons: Array<Button> = new Array<Button>();
 
   onCompaniesUpdater() {
     this.companiesUpdater.emit(this.companies);
@@ -24,13 +29,30 @@ export class ConnectedCompaniesComponent implements OnInit, OnChanges {
 
   public selectedCompany: string = "";
   
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private dataService: DataServiceService) {
+    dataService.data.subscribe(data => {
+      this.data = data
+    })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
   }
 
   ngOnInit(): void {
+    let baseUrl = "https://perso2.matrixrom.ro:9000/quickbooks"
+
+    let invoiceButton: Button = new Button("Get Invoices", baseUrl + "/invoice/list", this.realmId)
+    let billButton: Button = new Button("Get Bills", baseUrl + "/bill/list", this.realmId)
+    let customerButton: Button = new Button("Get Customers", baseUrl + "/customer/list", this.realmId)
+    let paymentButton: Button = new Button("Get Payment", baseUrl + "/payment/list", this.realmId)
+    let plButton:Button = new Button("Get Profit and Loss", baseUrl + "/profit-and-loss", this.realmId)
+    let apagingButton: Button = new Button("Get Aged Payables", baseUrl + "/apaging", this.realmId)
+    let aragingButton: Button = new Button("Get Aged Receivables", baseUrl + "/araging", this.realmId)
+    let vendorButton: Button = new Button("Get Vendors", baseUrl + "/vendor/list", this.realmId)
+    let accountButton: Button = new Button("Get Accounts", baseUrl + "/account/list", this.realmId)
+    let billpayment: Button = new Button("Get Bill Payments", baseUrl + "/bill-payment/list", this.realmId)
+
+    this.buttons = Array.of(invoiceButton, billButton, customerButton, paymentButton, plButton, apagingButton, aragingButton, vendorButton, accountButton, billpayment)
   }
 
   printCompany(company: string): void {
@@ -41,18 +63,5 @@ export class ConnectedCompaniesComponent implements OnInit, OnChanges {
 
     console.log(this.companies.get(company))
     this.selectedCompany = JSON.stringify(this.companies.get(company), undefined, 2);
-  }
-
-  public retrieveInvoices() {
-    this.http.get<any>(
-      'https://perso2.dev.matrixrom.ro:9000/quickbooks/invoice/list',
-      {
-        headers: {
-          "Realm-ID": Array.from(this.companies.keys())[0],
-        }
-      }
-    ).subscribe((data: any) => {
-      this.invoices = JSON.stringify(data.data, undefined, 2);
-    })
   }
 }
