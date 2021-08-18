@@ -39,7 +39,7 @@ export class ConnectedCompaniesComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    let baseUrl = "https://perso2.matrixrom.ro:9000/quickbooks"
+    let baseUrl = "https://perso2.dev.matrixrom.ro:9000/quickbooks"
 
     let invoiceButton: Button = new Button("Get Invoices", baseUrl + "/invoice/list", this.realmId)
     let billButton: Button = new Button("Get Bills", baseUrl + "/bill/list", this.realmId)

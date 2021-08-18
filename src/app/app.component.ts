@@ -25,7 +25,7 @@ export class AppComponent implements OnInit{
         this.realmId = realmId
 
         this.http.post<any>(
-          'https:///perso2.matrixrom.ro:9000/quickbooks/oauth/code',
+          'https:///perso2.dev.matrixrom.ro:9000/quickbooks/oauth/code',
           null,
           {
             headers: {
